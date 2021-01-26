@@ -35,7 +35,7 @@ let package = Package(
         ),
         .binaryTarget(
             name: "AgoraAIDenoiseExtension",
-            url: "https://github.com/AgoraIO/AgoraRtcEngine_iOS/releases/download/3.3.0/AgoraAIDenoiseExtension.xcframewor.zip",
+            url: "https://github.com/AgoraIO/AgoraRtcEngine_iOS/releases/download/3.3.0/AgoraAIDenoiseExtension.xcframework.zip",
             checksum: "099be38313b14fd807bcf6f914cc909720d651ea1e414babe22e656bb2629bdc"
         ),
         .binaryTarget(
