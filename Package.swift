@@ -5,19 +5,18 @@ import PackageDescription
 
 let package = Package(
     name: "AgoraRtcKit",
+    defaultLocalization: "en",
+    platforms: [.iOS(.v8)],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "AgoraRtcKit",
-            targets: ["AgoraRtcKit", "Agoraffmpeg", "Agorafdkaac", "AgoraSoundTouch", "AgoraCore", "AgoraAIDenoiseExtension", "AgoraDav1dExtension", "AgoraJNDExtension"]),
-    ],
-    dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+            targets: [
+                "AgoraRtcKit", "Agoraffmpeg", "Agorafdkaac", "AgoraSoundTouch",
+                "AgoraCore", "AgoraAIDenoiseExtension", "AgoraDav1dExtension", "AgoraJNDExtension"
+            ]
+        ),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .binaryTarget(
             name: "AgoraRtcKit",
             url: "https://download.agora.io/swiftpm/3.4.3/AgoraRtcEngine_iOS/AgoraRtcKit.xcframework.zip",
@@ -57,5 +56,6 @@ let package = Package(
             name: "Agoraffmpeg",
             url: "https://download.agora.io/swiftpm/3.4.3/AgoraRtcEngine_iOS/Agoraffmpeg.xcframework.zip",
             checksum: "c2a6577612d785ad7318785a4f3eed82fd5a83de6a5e5d3a84f098f9999d4fcd"
-        )    ]
+        )
+    ]
 )
