@@ -1,4 +1,4 @@
-name: build
+name: resolve
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
     - "*"
 
 jobs:
-  build:
+  resolve:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
