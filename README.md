@@ -5,7 +5,7 @@
 </p>
 Install Agora Video SDK easily with Swift Package Manager.
 
-![](/Users/maxcobb/Documents/Agora/AgoraIO/AgoraRtcEngine_iOS/media/swiftpm-agora.png)
+![](media/swiftpm-agora.png)
 
 [Click here for full documentation](https://docs.agora.io/en/Video/landing-page?platform=iOS).
 
