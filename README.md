@@ -3,8 +3,9 @@
 <p align="center">
   <img src="https://github.com/AgoraIO/AgoraRtcEngine_iOS/actions/workflows/swiftpm-resolve.yml/badge.svg"/>
 </p>
-
 Install Agora Video SDK easily with Swift Package Manager.
+
+![](/Users/maxcobb/Documents/Agora/AgoraIO/AgoraRtcEngine_iOS/media/swiftpm-agora.png)
 
 [Click here for full documentation](https://docs.agora.io/en/Video/landing-page?platform=iOS).
 
