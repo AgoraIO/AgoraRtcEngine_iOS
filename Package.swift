@@ -11,75 +11,75 @@ let package = Package(
         .library(
             name: "AgoraRtcKit",
             targets: [
-                "AgoraAIDenoiseExtension","AgoraCIExtension","AgoraCore","AgoraDav1dExtension","AgoraFDExtension","AgoraFDKAACExtension","Agoraffmpeg","AgoraJNDExtension","AgoraRtcKit","AgoraSoundTouch","AgoraSuperResolutionExtension","AgoraVideoProcessExtension","AgoraVideoSegmentationExtension"
+                "AgoraAIDenoiseExtension","AgoraCIExtension","AgoraCore","AgoraDav1dExtension","AgoraFDExtension","Agorafdkaac","Agoraffmpeg","AgoraJNDExtension","AgoraRtcKit","AgoraSoundTouch","AgoraSuperResolutionExtension","AgoraVideoProcessExtension","AgoraVideoSegmentationExtension"
             ]
         ),
     ],
     targets: [
         .binaryTarget(
             name: "AgoraAIDenoiseExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraAIDenoiseExtension.xcframework.zip",
-            checksum: "fbb68bdd0fe8382e2909136a312e75e9eaab04d47845aa087315a6c2e24c14ac"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraAIDenoiseExtension.xcframework.zip",
+            checksum: "3941fb313489a2fe050b5d9e04699ecf030e69a14fdcbed8f8d04efeab62f0d4"
         ),
         .binaryTarget(
             name: "AgoraCIExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraCIExtension.xcframework.zip",
-            checksum: "1aa0194c875b94ee13a9b292b11c4d2d9972aa46084ed8341be14a1e39796a51"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraCIExtension.xcframework.zip",
+            checksum: "f9f9a2f46eb493764fde37768f85ff5365633b10a5f8cbeba053a5ee97dc50ce"
         ),
         .binaryTarget(
             name: "AgoraCore",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraCore.xcframework.zip",
-            checksum: "cbaebc53ec88806faabf782c5c51ab978f521b20885d83f2f7d1825551fb7a59"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraCore.xcframework.zip",
+            checksum: "6a8b7d5cf7a22ebf77c642f4d738f585c4c139811f4b3bdaf6931a34f117daa9"
         ),
         .binaryTarget(
             name: "AgoraDav1dExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraDav1dExtension.xcframework.zip",
-            checksum: "f625faf7bb761ab0d9f4ecf4a7e7ed340b7f275546f83afd9fd7becda31ffdae"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraDav1dExtension.xcframework.zip",
+            checksum: "b610442ac85fbf89fd9fd5425f1ce997653e6cc383c1e15ea3440e8bee395cbc"
         ),
         .binaryTarget(
             name: "AgoraFDExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraFDExtension.xcframework.zip",
-            checksum: "24d455dfcffce6e7bbf4699f141761af675b5ce46e0ab5934e009b5b398b7da3"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraFDExtension.xcframework.zip",
+            checksum: "2349e40367d8e40f681e147e975cbb63f608d8a89c371e1b20a697056a5f47ad"
         ),
         .binaryTarget(
-            name: "AgoraFDKAACExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraFDKAACExtension.xcframework.zip",
-            checksum: "26d09471ea7cc2a360be231378a1165c27e26f35805713aaa9fdef52649abcaa"
+            name: "Agorafdkaac",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/Agorafdkaac.xcframework.zip",
+            checksum: "f3a1fa01b94185cb375eeafdc4d785c459098798b84e620b01f9ab74eda5acfc"
         ),
         .binaryTarget(
             name: "Agoraffmpeg",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/Agoraffmpeg.xcframework.zip",
-            checksum: "077a7021c1177be9d0f532a2555e293503e1e7224407116591b243f535c97d8a"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/Agoraffmpeg.xcframework.zip",
+            checksum: "2b45396cc075b04d8058bf8b62dd45c406b559bdf38be9e547db1bb9815d7eb9"
         ),
         .binaryTarget(
             name: "AgoraJNDExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraJNDExtension.xcframework.zip",
-            checksum: "4612be80dcff29648dda8626cabcad1a15cc43587f10ab501b39a700eaa293db"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraJNDExtension.xcframework.zip",
+            checksum: "1a374b685f1e96e20e3103dbca82e066ffc32bfc5785dc7aa29904c4a1ad31b9"
         ),
         .binaryTarget(
             name: "AgoraRtcKit",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraRtcKit.xcframework.zip",
-            checksum: "95537cb384061c40b0d350fb7eb9e4add686b3647815990fcba6c59662e75977"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraRtcKit.xcframework.zip",
+            checksum: "0a96927a519f13214c67d8d2ebebfab307ced624120058d74b1bc81db6e6cbc3"
         ),
         .binaryTarget(
             name: "AgoraSoundTouch",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraSoundTouch.xcframework.zip",
-            checksum: "f7e6624e43a06760d1648095ea03edca3584b9d63ec2b70fe0a8e5764efc5e48"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraSoundTouch.xcframework.zip",
+            checksum: "87219a6b0071d8c06f03caf28cd01cc65a5bb75a34d596ede9a6eeae1805a20b"
         ),
         .binaryTarget(
             name: "AgoraSuperResolutionExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraSuperResolutionExtension.xcframework.zip",
-            checksum: "80cef3ed5ff21d2de059478473aec0192620d78cf1683d33c593f5c19ad7598e"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraSuperResolutionExtension.xcframework.zip",
+            checksum: "c6358a696ae3de0a3f230612edcf6488f112eb5dd0ab7b261bbba62d65eb528c"
         ),
         .binaryTarget(
             name: "AgoraVideoProcessExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraVideoProcessExtension.xcframework.zip",
-            checksum: "2097c106e3bf0808ef35d9af5d58c1b4611a1d452bc9ab4812a96baf7ecb57d0"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraVideoProcessExtension.xcframework.zip",
+            checksum: "71d52e8f0bb4fd6f0fa627aad8b375ad5224ebac5ee805aa8af869fc4012cf97"
         ),
         .binaryTarget(
             name: "AgoraVideoSegmentationExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0/AgoraVideoSegmentationExtension.xcframework.zip",
-            checksum: "982ae19f7e301deeb1ee7dbb1ef84a454ad53675b7a4a669b281d741022c9dd9"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/3.6.0.1/AgoraVideoSegmentationExtension.xcframework.zip",
+            checksum: "c66d275e04fcb643456919493e458c8fbd2cdda7166ae0ab093e4eab9686d1b9"
         ),
     ]
 )
