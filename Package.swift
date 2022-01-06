@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "AgoraRtcKit",
     defaultLocalization: "en",
-    platforms: [.iOS(.v8)],
+    platforms: [.iOS(.v9)],
     products: [
         .library(
             name: "AgoraRtcKit",
