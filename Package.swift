@@ -96,10 +96,5 @@ let package = Package(
             url: "https://download.agora.io/swift_2/AgoraRtcEngine_iOS/3.6.2-r.2/AgoraVideoSegmentationExtension.xcframework.zip",
             checksum: "4935db808f4307bd53b8269b58e8c6453311073d2e3fc396e1445d429efee890"
         ),
-        .binaryTarget(
-            name: "distribute_aliyun_single.py",
-            url: "https://download.agora.io/swift_2/AgoraRtcEngine_iOS/3.6.2-r.2/distribute_aliyun_single.py.zip",
-            checksum: "747ad19ff4407d49a40d452bbc3ebf2a5545222b19e7f477106c26fbaa04f1bd"
-        ),
     ]
 )
