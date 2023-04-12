@@ -1,0 +1,133 @@
+@Tutorial(time: 10) {
+    @Intro(title: "Migrating from Vonage to Agora Video SDKs") {
+        In this tutorial, you'll go through the steps to migrate an iOS app from using the Vonage Video SDK to the Agora Video SDK. The process involves making some changes to your project's code and configuration.
+        This guide does not use Agora's Video UI Kit.
+        
+        @Image(source: vonage-agora-migration, alt: "Video UI Kit Banner Image")
+
+    }
+    
+    @Section(title: "Update project dependencies and imports") {
+        @ContentAndMedia {
+            
+        }
+
+        @Steps {
+            @Step {
+                If using CocoaPods, open your Podfile and delete the lines containing "pod 'OpenTok'" or "pod 'OTXCFramework'". Then run `pod install` in your terminal to continue.
+                
+                @Code(name: "Podfile", file: vonagemigrationrtc-01-02-changepodspec.rb)
+                
+                > If you installed have no other Pods installed, instead run `pod deintegrate` in the Terminal, and CocoaPods will be completely removed from your project.
+            }
+            
+            
+            @Step {
+                To install Agora's Video SDK, the recommended method is with Swift Package Manager. Add the package URL right into Xcode under the menu option "File > Add Packages...".
+                `https://github.com/AgoraIO/AgoraRtcEngine_iOS`
+                
+                > [AgoraRtcEngine_iOS on Swift Package Index](https://swiftpackageindex.com/AgoraIO/AgoraRtcEngine_iOS) has all the information required for Agora's Video SDK, just be sure to include the "RtcBasic" library when prompted.
+                > Agora is also available on [CocoaPods: AgoraRtcEngine_iOS](https://cocoapods.org/pods/AgoraRtcEngine_iOS).
+                
+                @Video(source: vonagemigrationrtc-01-03-importrtc.mov, poster: vonagemigrationrtc-01-03-importrtc.png, alt: "import package with Xcode")
+            }
+            
+            @Step {
+                You'll need to just swap out the import statements, to make sure the package is imported to your project files.
+                
+                @Code(name: "VideoCallApp.swift", file: vonagemigrationrtc-01-02-importrtc.swift)
+            }
+        }
+    }
+    
+    @Section(title: "Update the project") {
+        @ContentAndMedia {
+            The two SDKs do rhyme with each other a little bit, so the next few steps show the SDK interactions highlighted, with the Vonage portions commented. 
+        }
+        
+        @Steps {
+            @Step {
+                Starting off from a basic project that displays nothing on screen, just connects to a channel, these are the changes you'll need to make.
+
+                @Code(name: "VideoCallApp.swift", file: vonagemigrationrtc-02-01-joinchannel, previousFile: vonagemigrationrtc-02-01-joinsession)
+            }
+            
+            @Step {
+                Display remote videos. Agora uses AgoraRtcVideoCanvas and an associated UIView, rather than Vonage's OTSubscriber and an associated UIView.
+                
+                @Code(name: "VideoCallApp.swift", file: vonagemigrationrtc-02-02-subscribeagora, previousFile: vonagemigrationrtc-02-02-subscribevonage)
+            }
+            
+            @Step {
+                Finally, make some changes to display our local video feed thanks to a new canvas, `localCanvas`.
+
+                @Code(name: "VideoCallApp.swift", file: vonagemigrationrtc-02-03-streamagora, previousFile: vonagemigrationrtc-02-03-streamvonage)
+            }
+        }
+    }
+    
+    @Section(title: "Completed Project") {
+        @ContentAndMedia {
+            You now have a basic project for Agora, adapted from a Vonage implementation.
+            This project can only handle one incoming stream and always displays it as full screen. See our other guides to see how to make more complex applications.
+        }
+            
+        @Steps {
+            @Step {
+                Here's that full `ViewController`, working with Agora and without any Vonage comments:
+                
+                @Code(name: "VideoCallApp.swift", file: vonagemigrationrtc-02-04-fullagora)
+            }
+        }
+    }
+    
+    @Assessments {
+        @MultipleChoice {
+            How do you initialize AgoraRtcEngineKit, equivalent of OTSession?
+            
+            @Choice(isCorrect: false) {
+                `AgoraRtcEngineKit(...)`.
+                
+                @Justification(reaction: "Try again!") {
+                    That's not the correct method to initialize the AgoraRtcEngine. 
+                }
+            }
+            
+            @Choice(isCorrect: true) {
+                `AgoraRtcEngineKit.sharedEngine(...)`.
+                
+                @Justification(reaction: "That's correct!") {
+                    That's right! The `sharedEngine` method returns a singleton instance of the AgoraRtcEngine.
+                }
+            }
+            
+            @Choice(isCorrect: false) {
+                Using the method `AgoraRtcEngineKit.startEngine`.
+                
+                @Justification(reaction: "Try again!") {
+                    That's not the correct method to initialize the AgoraRtcEngine. 
+                }
+            }
+        }
+        
+        @MultipleChoice {
+            How do you subscribe to a remote video feed with Agora? With Vonage you create a OTSubscriber instance from the streamCreated delegate.
+            
+            @Choice(isCorrect: true) {
+                You check the `didJoinedOfUid` callback method, and create an AgoraRtcVideoCanvas based on that.
+                
+                @Justification(reaction: "That's correct!") {
+                    That's not the correct method to initialize the AgoraRtcEngine. 
+                }
+            }
+            
+            @Choice(isCorrect: false) {
+                You create a view that subscribes to all incoming streams at once.
+                
+                @Justification(reaction: "Try again!") {
+                    That's not the correct method. Adding all streams to a single view could get messy!
+                }
+            }
+        }
+    }
+}

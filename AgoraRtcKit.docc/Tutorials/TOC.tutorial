@@ -1,0 +1,13 @@
+@Tutorials(name: "") {
+    @Intro(title: "Agora Video SDK Tutorials") {
+        These tutorials will show you how to use Agora's Video SDK.
+    }
+        
+    @Chapter(name: "Migrations") {
+        @Image(source: vonage-agora-migration, alt: "Migrate from Vonage to Agora")
+        
+        Learn how a basic implementation of Vonage (TokBox), can be converted to use Agora's Video SDK instead.
+
+        @TutorialReference(tutorial: "doc:AgoraMigrationFromVonage")
+    }
+}
