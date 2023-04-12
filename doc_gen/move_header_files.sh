@@ -56,7 +56,7 @@ if [ ! -z $2 ]; then
     file_name=$(basename "$dest_dir/$doccpath")
     file_uuid=$(uuidgen)
     echo "Adding $file_name to project"
-    docc_relpath=$(realpath --relative-to="$xcoderoot" "$doccpath")
+    docc_relpath="../$doccpath"
 
     build_file_uuid=$(uuidgen)
     build_file_line="		$build_file_uuid /* $file_name in Sources */ = {isa = PBXBuildFile; fileRef = $file_uuid /* $file_name */; };"
