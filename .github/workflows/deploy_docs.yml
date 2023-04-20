@@ -5,6 +5,8 @@ on:
   # Runs on new releases
   release:
     types: [published]
+  push:
+    branches: [docc-max-curation]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
