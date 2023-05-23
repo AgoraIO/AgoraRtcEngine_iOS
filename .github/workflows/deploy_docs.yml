@@ -5,8 +5,6 @@ on:
   # Runs on new releases
   release:
     types: [published]
-  push:
-    branches: [docc-max-curation]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -50,3 +48,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+      - name: Upload files to GitHub release
+        uses: svenstaro/upload-release-action@2.5.0
+        file: tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive
+        asset_name: AgoraRtcKit-${{github.ref}}.doccarchive
+        tag: ${{ github.ref }}
