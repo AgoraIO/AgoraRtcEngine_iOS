@@ -8,7 +8,7 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -18,33 +18,45 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
-    # Will only publish if the new release matches with the latest main branch commit.
-    if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch }}
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: macos-12
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Build DocC
+
+      - name: Generate DocC Archive
         run: |
           sh -e doc_gen/dl_framework.sh
           sh -e doc_gen/move_header_files.sh AgoraRtcKit.xcframework AgoraRtcKit.docc
           sh -e doc_gen/headers_to_xcodeproj.sh AgoraRtcKit docc_builder
           xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
+
+      - name: Zip It Up
+        run: zip -r AgoraRtcKit-${{ github.event.release.tag_name }}.doccarchive.zip /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive
+      - name: Upload files to GitHub release
+        uses: svenstaro/upload-release-action@2.5.0
+        with:
+          file: AgoraRtcKit-${{ github.event.release.tag_name }}.doccarchive.zip
+          asset_name: AgoraRtcKit-${{ github.event.release.tag_name }}.doccarchive.zip
+          tag: ${{ github.ref }}
+
+      - name: Build Static Website
+        if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch }}
+        run: |
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive \
             --hosting-base-path AgoraRtcEngine_iOS \
-            --output-path docs;
+            --output-path docs
           echo "<script>window.location.href += \"/documentation/agorartckit\"</script>" > docs/index.html
+
       - name: Upload artifact
+        if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch }}
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload docs directory
           path: 'docs'
+
       - name: Deploy to GitHub Pages
+        if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch }}
         id: deployment
         uses: actions/deploy-pages@v1

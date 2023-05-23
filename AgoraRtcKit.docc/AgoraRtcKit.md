@@ -24,7 +24,7 @@ AgoraRtcKit is designed to be flexible and customizable, allowing developers to 
 
 ### Core Classes
 
-- ``AgoraRtcEngineKit``
+- ``AgoraRtcKit/AgoraRtcEngineKit``
 - ``AgoraRtcVideoCanvas``
 - ``AgoraRtcEngineDelegate``
 - ``AgoraRtcEngineConfig``
