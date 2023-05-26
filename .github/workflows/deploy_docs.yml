@@ -53,7 +53,9 @@ jobs:
       - name: Generate DocC Archive (CN)
         run: xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
       - name: Zip It Up (CN)
-        run: zip -r AgoraRtcKit-cn.doccarchive.zip /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive
+        run: |
+          mv /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive AgoraRtcKit-cn.doccarchive
+          zip -r AgoraRtcKit-cn.doccarchive.zip AgoraRtcKit-cn.doccarchive
       - name: Upload DocC Artifact (CN)
         uses: actions/upload-artifact@v3
         with:
@@ -77,7 +79,9 @@ jobs:
       - name: Generate DocC Archive (EN)
         run: xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
       - name: Zip It Up (EN)
-        run: zip -r AgoraRtcKit-en.doccarchive.zip /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive
+        run: |
+          mv /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive AgoraRtcKit-en.doccarchive
+          zip -r AgoraRtcKit-en.doccarchive.zip AgoraRtcKit-en.doccarchive
       - name: Upload DocC Artifact (EN)
         uses: actions/upload-artifact@v3
         with:
@@ -94,7 +98,7 @@ jobs:
         if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch }}
         run: |
           $(xcrun --find docc) process-archive \
-            transform-for-static-hosting /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive \
+            transform-for-static-hosting AgoraRtcKit-en.doccarchive \
             --hosting-base-path AgoraRtcEngine_iOS \
             --output-path docs
           echo "<script>window.location.href += \"/documentation/agorartckit\"</script>" > docs/index.html
