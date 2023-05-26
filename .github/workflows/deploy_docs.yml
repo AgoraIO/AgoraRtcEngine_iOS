@@ -41,25 +41,49 @@ jobs:
         uses: actions/setup-python@v4
         with:
             python-version: '3.9'
-      - name: Run Python Script
+      - name: Run Python Script (CN)
         run: |
           cd iris-doc
           python -m pip install -r requirements.txt
           python iris_doc.py \
             --config=$(pwd)/fmt_config/fmt_oc.yaml \
             --language=oc \
+            --template-url=https://github.com/AgoraIO/agora_doc_source/releases/download/master/ios_ng_json_template_cn.json \
+            --export-file-path=$(pwd)/../docc_builder/AgoraRtcKit/Headers/AgoraRtcKit.h
+      - name: Generate DocC Archive (CN)
+        run: xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
+      - name: Zip It Up (CN)
+        run: zip -r AgoraRtcKit-cn.doccarchive.zip /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive
+      - name: Upload DocC Artifact (CN)
+        uses: actions/upload-artifact@v3
+        with:
+          name: AgoraRtcKit-cn.doccarchive.zip
+          path: AgoraRtcKit-cn.doccarchive.zip
+      - name: Upload files to GitHub release (CN)
+        if: ${{ github.event.release.tag_name }}
+        uses: svenstaro/upload-release-action@2.5.0
+        with:
+          file: AgoraRtcKit-cn.doccarchive.zip
+          asset_name: AgoraRtcKit-cn.doccarchive.zip
+          tag: ${{ github.ref_name }}
+      - name: Run Python Script (EN)
+        run: |
+          cd iris-doc
+          python iris_doc.py \
+            --config=$(pwd)/fmt_config/fmt_oc.yaml \
+            --language=oc \
             --template-url=https://github.com/AgoraIO/agora_doc_source/releases/download/master/ios_ng_json_template_en.json \
             --export-file-path=$(pwd)/../docc_builder/AgoraRtcKit/Headers/AgoraRtcKit.h
-      - name: Generate DocC Archive
+      - name: Generate DocC Archive (EN)
         run: xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
-      - name: Zip It Up
+      - name: Zip It Up (EN)
         run: zip -r AgoraRtcKit-en.doccarchive.zip /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive
-      - name: Upload DocC Artifact
+      - name: Upload DocC Artifact (EN)
         uses: actions/upload-artifact@v3
         with:
           name: AgoraRtcKit-en.doccarchive.zip
           path: AgoraRtcKit-en.doccarchive.zip
-      - name: Upload files to GitHub release
+      - name: Upload files to GitHub release (EN)
         if: ${{ github.event.release.tag_name }}
         uses: svenstaro/upload-release-action@2.5.0
         with:
