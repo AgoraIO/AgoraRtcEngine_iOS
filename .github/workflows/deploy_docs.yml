@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [run-insertion]
+    branches: [main]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -48,7 +48,7 @@ jobs:
           python iris_doc.py \
             --config=$(pwd)/fmt_config/fmt_oc.yaml \
             --language=oc \
-            --template-url=https://github.com/AgoraIO/agora_doc_source/releases/download/master/ios_ng_json_template_cn.json \
+            --template-url=https://github.com/AgoraIO/agora_doc_source/releases/download/master-build/ios_ng_json_template_cn.json \
             --export-file-path=$(pwd)/../docc_builder/AgoraRtcKit/Headers/AgoraRtcKit.h
       - name: Generate DocC Archive (CN)
         run: xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
@@ -61,9 +61,9 @@ jobs:
         with:
           name: AgoraRtcKit-cn.doccarchive.zip
           path: AgoraRtcKit-cn.doccarchive.zip
-      - name: Upload files to GitHub release (CN)
-        if: ${{ github.event.release.tag_name }}
-        uses: svenstaro/upload-release-action@2.5.0
+      - name: Upload DocC Archive to GitHub release (CN)
+        if: ${{ github.event.release }}
+        uses: svenstaro/upload-release-action@2.6.0
         with:
           file: AgoraRtcKit-cn.doccarchive.zip
           asset_name: AgoraRtcKit-cn.doccarchive.zip
@@ -74,7 +74,7 @@ jobs:
           python iris_doc.py \
             --config=$(pwd)/fmt_config/fmt_oc.yaml \
             --language=oc \
-            --template-url=https://github.com/AgoraIO/agora_doc_source/releases/download/master/ios_ng_json_template_en.json \
+            --template-url=https://github.com/AgoraIO/agora_doc_source/releases/download/master-build/ios_ng_json_template_en.json \
             --export-file-path=$(pwd)/../docc_builder/AgoraRtcKit/Headers/AgoraRtcKit.h
       - name: Generate DocC Archive (EN)
         run: xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
@@ -87,9 +87,9 @@ jobs:
         with:
           name: AgoraRtcKit-en.doccarchive.zip
           path: AgoraRtcKit-en.doccarchive.zip
-      - name: Upload files to GitHub release (EN)
-        if: ${{ github.event.release.tag_name }}
-        uses: svenstaro/upload-release-action@2.5.0
+      - name: Upload DocC Archive to GitHub release (EN)
+        if: ${{ github.event.release }}
+        uses: svenstaro/upload-release-action@2.6.0
         with:
           file: AgoraRtcKit-en.doccarchive.zip
           asset_name: AgoraRtcKit-en.doccarchive.zip
