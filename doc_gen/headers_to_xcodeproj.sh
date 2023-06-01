@@ -32,7 +32,7 @@ for file_path in "$headers_dir"/*.h; do
   build_file_line="		$build_file_uuid /* $file_name in Headers */ = {isa = PBXBuildFile; fileRef = $file_uuid /* $file_name */; };"
   if echo "$header_names" | grep -q "^$file_name$"; then
     build_file_line="$build_file_uuid /* $file_name in Headers */ = {isa = PBXBuildFile; fileRef = $file_uuid /* $file_name */; settings = {ATTRIBUTES = (Public, ); }; };"
-    sed -i '' -E 's/#import +"(.*)"/#import <AgoraRtcKit\/\1>/' "$file_path"
+    sed -i '' -E "s/#import +\"(.*)\"/#import <$frameworkname\/\1>/" "$file_path"
   fi
   sed -i '' -e $'/End PBXBuildFile section/ i\\\n'"$build_file_line" "$pbxproj_path"
 

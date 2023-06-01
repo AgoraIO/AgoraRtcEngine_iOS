@@ -40,7 +40,7 @@ jobs:
         run: sudo xcode-select --switch /Applications/Xcode_14.3.app
       - name: Setup Xcode Project 🛠️
         run: |
-          sh -e doc_gen/dl_framework.sh
+          sh -e doc_gen/dl_framework.sh ${{ env.PACKAGE_NAME }}
           sh -e doc_gen/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc
           sh -e doc_gen/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder
       - name: Clone Python Script 👭

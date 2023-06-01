@@ -20,19 +20,17 @@ mv $xcoderoot/FRAMEWORK_NAME $xcoderoot/$frameworkname
 sed -i '' "s/FRAMEWORK_NAME/$frameworkname/g" $pbxproj_path
 # main_group=$(grep -o 'mainGroup = [[:alnum:]]\{24\}' $pbxproj_path | cut -d' ' -f3 | tr -d ';')
 
-# Copy all header files including "AgoraRtcKit.h" to the Headers subdirectory
+# Copy all header files to the Headers subdirectory
 find "$src_dir" -type f -name "*.h" -exec cp {} "$dest_dir/Headers" \;
 
 file_name=$(basename "$frameworkname.h")
 file_uuid=$(uuidgen)
 echo "Adding $file_name to project"
 build_file_uuid=$(uuidgen)
-#		F3B5915329E28E6E007A92E3 /* AgoraRtcKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F3B5915229E28E6E007A92E3 /* AgoraRtcKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 build_file_line="		$build_file_uuid /* $file_name in Headers */ = {isa = PBXBuildFile; fileRef = $file_uuid /* $file_name */; settings = {ATTRIBUTES = (Public, ); }; };"
 echo "$build_file_line"
 sed -i '' -e $'/End PBXBuildFile section/ i\\\n'"$build_file_line" "$pbxproj_path"
 
-# F3B5915229E28E6E007A92E3 /* AgoraRtcKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgoraRtcKit.h; sourceTree = "<group>"; };
 file_ref_line="		$file_uuid /* $file_name */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = $file_name; sourceTree = \"<group>\"; };"
 echo "$file_ref_line"
 sed -i '' -e $'/End PBXFileReference section/ i\\\n'"$file_ref_line" "$pbxproj_path"
