@@ -21,96 +21,86 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  PACKAGE_NAME: AgoraRtcKit
+  BUILD_DEST: generic/platform=iOS
+  BUILD_PRODUCT: Debug-iphoneos
+  JSON_TEMPLATE_BASE: https://github.com/AgoraIO/agora_doc_source/releases/download/master-build/ios_ng_json_template
+
 jobs:
   deploy:
     runs-on: macos-13
+    strategy:
+      matrix:
+        language: ['en', 'cn']
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Setup Xcode Project
+      - name: Switch Xcode 🔄
+        run: sudo xcode-select --switch /Applications/Xcode_14.3.app
+      - name: Setup Xcode Project 🛠️
         run: |
           sh -e doc_gen/dl_framework.sh
-          sh -e doc_gen/move_header_files.sh AgoraRtcKit.xcframework AgoraRtcKit.docc
-          sh -e doc_gen/headers_to_xcodeproj.sh AgoraRtcKit docc_builder
-      - name: Clone Python Script
+          sh -e doc_gen/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc
+          sh -e doc_gen/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder
+      - name: Clone Python Script 👭
         uses: actions/checkout@v3
         with:
           repository: littleGnAl/iris-doc
           path: iris-doc
-      - name: Set up python 3.9
+      - name: Set up python 3.9 🐍
         uses: actions/setup-python@v4
         with:
             python-version: '3.9'
-      - name: Run Python Script (CN)
+      - name: Add Inline Docs (${{ matrix.language }}) 📕
         run: |
           cd iris-doc
           python -m pip install -r requirements.txt
           python iris_doc.py \
             --config=$(pwd)/fmt_config/fmt_oc.yaml \
             --language=oc \
-            --template-url=https://github.com/AgoraIO/agora_doc_source/releases/download/master-build/ios_ng_json_template_cn.json \
-            --export-file-path=$(pwd)/../docc_builder/AgoraRtcKit/Headers/AgoraRtcKit.h
-      - name: Generate DocC Archive (CN)
-        run: xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
-      - name: Zip It Up (CN)
+            --template-url=${{ env.JSON_TEMPLATE_BASE }}_${{ matrix.language }}.json \
+            --export-file-path=$(pwd)/../docc_builder/${{ env.PACKAGE_NAME }}/Headers/${{ env.PACKAGE_NAME }}.h
+      - name: Generate DocC Archive (${{ matrix.language }}) 🪄
+        run: xcodebuild -project docc_builder/${{ env.PACKAGE_NAME }}.xcodeproj docbuild -scheme ${{ env.PACKAGE_NAME }} -derivedDataPath /tmp/docbuild -destination ${{ env.BUILD_DEST }}
+      - name: Zip It Up (${{ matrix.language }}) 🤐
         run: |
-          mv /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive AgoraRtcKit-cn.doccarchive
-          zip -r AgoraRtcKit-cn.doccarchive.zip AgoraRtcKit-cn.doccarchive
-      - name: Upload DocC Artifact (CN)
+          mv /tmp/docbuild/Build/Products/${{ env.BUILD_PRODUCT }}/${{ env.PACKAGE_NAME }}.doccarchive ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive
+          zip -r ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive
+      - name: Upload DocC Artifact (${{ matrix.language }}) ⬆️
         uses: actions/upload-artifact@v3
         with:
-          name: AgoraRtcKit-cn.doccarchive.zip
-          path: AgoraRtcKit-cn.doccarchive.zip
-      - name: Upload DocC Archive to GitHub release (CN)
-        if: ${{ github.event.release }}
+          name: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
+          path: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
+      - name: Upload DocC Archive to GitHub release (${{ matrix.language }}) ⬆️
+        if: github.event.release
         uses: svenstaro/upload-release-action@2.6.0
         with:
-          file: AgoraRtcKit-cn.doccarchive.zip
-          asset_name: AgoraRtcKit-cn.doccarchive.zip
+          file: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
+          asset_name: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
           tag: ${{ github.ref_name }}
-      - name: Run Python Script (EN)
-        run: |
-          cd iris-doc
-          python iris_doc.py \
-            --config=$(pwd)/fmt_config/fmt_oc.yaml \
-            --language=oc \
-            --template-url=https://github.com/AgoraIO/agora_doc_source/releases/download/master-build/ios_ng_json_template_en.json \
-            --export-file-path=$(pwd)/../docc_builder/AgoraRtcKit/Headers/AgoraRtcKit.h
-      - name: Generate DocC Archive (EN)
-        run: xcodebuild -project docc_builder/AgoraRtcKit.xcodeproj docbuild -scheme AgoraRtcKit -derivedDataPath /tmp/docbuild -destination generic/platform=iOS
-      - name: Zip It Up (EN)
-        run: |
-          mv /tmp/docbuild/Build/Products/Debug-iphoneos/AgoraRtcKit.doccarchive AgoraRtcKit-en.doccarchive
-          zip -r AgoraRtcKit-en.doccarchive.zip AgoraRtcKit-en.doccarchive
-      - name: Upload DocC Artifact (EN)
-        uses: actions/upload-artifact@v3
+      - name: lowercase Package Name 🔤
+        if: matrix.language == 'en'
+        id: package-name
+        uses: vishalmamidi/lowercase-action@v1
         with:
-          name: AgoraRtcKit-en.doccarchive.zip
-          path: AgoraRtcKit-en.doccarchive.zip
-      - name: Upload DocC Archive to GitHub release (EN)
-        if: ${{ github.event.release }}
-        uses: svenstaro/upload-release-action@2.6.0
-        with:
-          file: AgoraRtcKit-en.doccarchive.zip
-          asset_name: AgoraRtcKit-en.doccarchive.zip
-          tag: ${{ github.ref_name }}
-      - name: Build Static Website
-        if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch }}
+          string: ${{ env.PACKAGE_NAME }}
+      - name: Build Static Website 🎈
+        if: matrix.language == 'en' && github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch
         run: |
           $(xcrun --find docc) process-archive \
-            transform-for-static-hosting AgoraRtcKit-en.doccarchive \
-            --hosting-base-path AgoraRtcEngine_iOS \
+            transform-for-static-hosting ${{ env.PACKAGE_NAME }}-en.doccarchive \
+            --hosting-base-path ${{ github.event.repository.name }} \
             --output-path docs
-          echo "<script>window.location.href += \"/documentation/agorartckit\"</script>" > docs/index.html
-
-      - name: Upload artifact
-        if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch }}
+          echo "<script>window.location.href += \"/documentation/${{ steps.package-name.outputs.lowercase }}\"</script>" > docs/index.html
+      - name: Upload artifact ⬆️
+        if: matrix.language == 'en' && github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload docs directory
           path: 'docs'
 
-      - name: Deploy to GitHub Pages
-        if: ${{ github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch }}
+      - name: Deploy to GitHub Pages 📑
+        if: matrix.language == 'en' && github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch
         id: deployment
         uses: actions/deploy-pages@v1
