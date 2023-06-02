@@ -28,7 +28,8 @@ env:
   JSON_TEMPLATE_BASE: https://github.com/AgoraIO/agora_doc_source/releases/download/master-build/ios_ng_json_template
 
 jobs:
-  deploy:
+  generate-docc:
+    name: Build DocC Archives
     runs-on: macos-13
     strategy:
       matrix:
@@ -38,7 +39,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Switch Xcode 🔄
         run: sudo xcode-select --switch /Applications/Xcode_14.3.app
-      - name: Clone DocC Helper
+      - name: Clone DocC Helper 👭
         uses: actions/checkout@v3
         with:
           repository: maxxfrazer/xcframework-to-docc
@@ -84,14 +85,29 @@ jobs:
           file: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
           asset_name: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
           tag: ${{ github.ref_name }}
+  publish:
+    name: Publish Documentation Site 🛜
+    if: github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch
+    runs-on: macos-13
+    needs: generate-docc
+    strategy:
+      matrix:
+        language: ['en']
+    steps:
+      - name: Download DocC Archive ⬇️
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
+      - name: Unzip Archive 😮
+        run: |
+          unzip ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
+          ls -li ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive
       - name: lowercase Package Name 🔤
-        if: matrix.language == 'en'
         id: package-name
         uses: vishalmamidi/lowercase-action@v1
         with:
           string: ${{ env.PACKAGE_NAME }}
       - name: Build Static Website 🎈
-        if: matrix.language == 'en' && github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch
         run: |
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting ${{ env.PACKAGE_NAME }}-en.doccarchive \
@@ -99,13 +115,9 @@ jobs:
             --output-path docs
           echo "<script>window.location.href += \"/documentation/${{ steps.package-name.outputs.lowercase }}\"</script>" > docs/index.html
       - name: Upload artifact ⬆️
-        if: matrix.language == 'en' && github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload docs directory
           path: 'docs'
-
       - name: Deploy to GitHub Pages 📑
-        if: matrix.language == 'en' && github.event.release.prerelease == false && github.event.release.draft == false && github.event.release.tag_name == github.event.repository.default_branch
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
