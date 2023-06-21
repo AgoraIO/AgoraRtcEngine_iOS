@@ -113,7 +113,7 @@ jobs:
             transform-for-static-hosting ${{ env.PACKAGE_NAME }}-en.doccarchive \
             --hosting-base-path ${{ github.event.repository.name }} \
             --output-path docs
-          echo "<script>window.location.href += \"/documentation/${{ steps.package-name.outputs.lowercase }}\"</script>" > docs/index.html
+          echo "<script>window.location.href = \"./documentation/${{ steps.package-name.outputs.lowercase }}\"</script>" > docs/index.html
       - name: Upload artifact ⬆️
         uses: actions/upload-pages-artifact@v1
         with:
