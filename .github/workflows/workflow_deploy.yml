@@ -1,0 +1,91 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy DocC To Pages (en)
+
+on:
+  # Runs on workflow dispatch only
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  PACKAGE_NAME: AgoraRtcKit
+  BUILD_DEST: generic/platform=iOS
+  BUILD_PRODUCT: Debug-iphoneos
+  JSON_TEMPLATE_BASE: https://github.com/AgoraIO/agora_doc_source/releases/download/master-build/ios_ng_json_template
+
+jobs:
+  generate-docc:
+    name: Build DocC Archives
+    runs-on: macos-13
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Switch Xcode 🔄
+        run: sudo xcode-select --switch /Applications/Xcode_14.3.app
+      - name: Clone DocC Helper 👭
+        uses: actions/checkout@v3
+        with:
+          repository: maxxfrazer/xcframework-to-docc
+          path: xcframework-to-docc
+      - name: Setup Xcode Project 🛠️
+        run: |
+          sh -e xcframework-to-docc/dl_framework.sh ${{ env.PACKAGE_NAME }}
+          sh -e xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc
+          sh -e xcframework-to-docc/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder
+      - name: Clone Python Script 👭
+        uses: actions/checkout@v3
+        with:
+          repository: littleGnAl/iris-doc
+          path: iris-doc
+      - name: Set up python 3.9 🐍
+        uses: actions/setup-python@v4
+        with:
+            python-version: '3.9'
+      - name: Add Inline Docs (en) 📕
+        run: |
+          cd iris-doc
+          python -m pip install -r requirements.txt
+          python iris_doc.py \
+            --config=$(pwd)/fmt_config/fmt_oc.yaml \
+            --language=oc \
+            --template-url=${{ env.JSON_TEMPLATE_BASE }}_en.json \
+            --export-file-path=$(pwd)/../docc_builder/${{ env.PACKAGE_NAME }}/Headers/${{ env.PACKAGE_NAME }}.h
+      - name: Generate DocC Archive (en) 🪄
+        run: xcodebuild -project docc_builder/${{ env.PACKAGE_NAME }}.xcodeproj docbuild -scheme ${{ env.PACKAGE_NAME }} -derivedDataPath /tmp/docbuild -destination ${{ env.BUILD_DEST }}
+      - name: Zip It Up (en) 🤐
+        run: |
+          mv /tmp/docbuild/Build/Products/${{ env.BUILD_PRODUCT }}/${{ env.PACKAGE_NAME }}.doccarchive ${{ env.PACKAGE_NAME }}-en.doccarchive
+          zip -r ${{ env.PACKAGE_NAME }}-en.doccarchive.zip ${{ env.PACKAGE_NAME }}-en.doccarchive
+      - name: Upload DocC Artifact (en) ⬆️
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.PACKAGE_NAME }}-en.doccarchive.zip
+          path: ${{ env.PACKAGE_NAME }}-en.doccarchive.zip
+      - name: lowercase Package Name 🔤
+        id: package-name
+        uses: vishalmamidi/lowercase-action@v1
+        with:
+          string: ${{ env.PACKAGE_NAME }}
+      - name: Build Static Website 🎈
+        run: |
+          $(xcrun --find docc) process-archive \
+            transform-for-static-hosting ${{ env.PACKAGE_NAME }}-en.doccarchive \
+            --hosting-base-path ${{ github.event.repository.name }} \
+            --output-path docs
+          echo "<script>window.location.href += \"/documentation/${{ steps.package-name.outputs.lowercase }}\"</script>" > docs/index.html
+      - name: Upload artifact ⬆️
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'docs'
+      - name: Deploy to GitHub Pages 📑
+        id: deployment
+        uses: actions/deploy-pages@v2
