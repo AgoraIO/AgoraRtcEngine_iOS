@@ -65,9 +65,10 @@ public struct AgoraVideoCanvasView: ViewRepresentable {
 
     /// 🆔 An enum representing different types of canvas IDs, indicating whether it represents a user ID or a media source.
     public enum CanvasIdType {
-        /// 🆔 Represents a user ID for the video stream.
+        /// 🆔 Represents a user ID for the video stream. You'll use this for joining most channels.
         case userId(UInt)
         /// 🆔 Represents a user ID with an `AgoraRtcConnection` for the video stream.
+        /// Used when you've joined a channel with `joinChannelEx`.
         case userIdEx(UInt, AgoraRtcConnection)
         /// 🆔 Represents a media source with an `AgoraVideoSourceType` and an optional media player ID.
         case mediaSource(AgoraVideoSourceType, mediaPlayerId: Int32?)
@@ -106,28 +107,51 @@ public struct AgoraVideoCanvasView: ViewRepresentable {
     /// Properties struct to encapsulate all possible canvas properties
     public struct CanvasProperties {
         /// 🎨 The render mode for the video stream, which determines how the video is scaled and displayed.
-        var renderMode: AgoraVideoRenderMode = .hidden
+        public var renderMode: AgoraVideoRenderMode
         /// 🖼️ The portion of the video stream to display, specified as a CGRect with values between 0 and 1.
-        var cropArea: CGRect = .zero
+        public var cropArea: CGRect
         /// 🔧 The mode for setting up the video view, which determines whether to replace or merge with existing views.
-        var setupMode: AgoraVideoViewSetupMode = .replace
-        /// 🔄 The mirror mode for the video stream.
-        var mirrorMode: AgoraVideoMirrorMode = .disabled
-        /// 🔤 Enables or disables the alpha mask for the video stream.
-        var enableAlphaMask: Bool = false
+        public var setupMode: AgoraVideoViewSetupMode
+        /// 🪞 A property that represents the mirror mode for the video stream.
+        /// The mirror mode determines how the video is mirrored when displayed.
+        public var mirrorMode: AgoraVideoMirrorMode
+        /// 🫥 A property that determines whether the alpha mask is enabled for the video stream.
+        /// When `true`, the alpha mask is enabled, allowing transparency to be displayed in the video stream.
+        /// When `false`, the alpha mask is disabled, and the video stream is opaque.
+        public var enableAlphaMask: Bool
+
+        /// Initializes a `CanvasProperties` instance with the specified values.
+        ///
+        /// - Parameters:
+        ///   - renderMode: 🎨 The render mode for the video stream, which determines how the video is scaled and displayed.
+        ///   - cropArea: 🖼️ The portion of the video stream to display, specified as a CGRect with values between 0 and 1.
+        ///   - setupMode: 🔧 The mode for setting up the video view, which determines whether to replace or merge with existing views.
+        ///   - mirrorMode: 🪞 A property that represents the mirror mode for the video stream.
+        ///   - enableAlphaMask: 🫥 Enables or disables the alpha mask for the video stream.
+        public init(renderMode: AgoraVideoRenderMode = .hidden,
+                    cropArea: CGRect = .zero,
+                    setupMode: AgoraVideoViewSetupMode = .replace,
+                    mirrorMode: AgoraVideoMirrorMode = .disabled,
+                    enableAlphaMask: Bool = false) {
+            self.renderMode = renderMode
+            self.cropArea = cropArea
+            self.setupMode = setupMode
+            self.mirrorMode = mirrorMode
+            self.enableAlphaMask = enableAlphaMask
+        }
     }
 
     /// 🔤 The canvas properties struct to encapsulate all possible canvas properties.
     private var canvasProperties: CanvasProperties
-    /// 🎨 The render mode for the view.
+    /// 🎨 The render mode for the video stream, which determines how the video is scaled and displayed.
     public var renderMode: AgoraVideoRenderMode {
         get { canvasProperties.renderMode } set { canvasProperties.renderMode = newValue }
     }
-    /// 🖼️ The crop area for the view.
+    /// 🖼️ The portion of the video stream to display, specified as a CGRect with values between 0 and 1.
     public var cropArea: CGRect {
         get { canvasProperties.cropArea } set { canvasProperties.cropArea = newValue }
     }
-    /// 🔧 The setup mode for the view.
+    /// 🔧 The mode for setting up the video view, which determines whether to replace or merge with existing views.
     public var setupMode: AgoraVideoViewSetupMode {
         get { canvasProperties.setupMode } set { canvasProperties.setupMode = newValue }
     }
@@ -178,11 +202,11 @@ public struct AgoraVideoCanvasView: ViewRepresentable {
     public init(
         manager: CanvasViewHelper,
         canvasId: CanvasIdType,
-        canvasProps: CanvasProperties? = nil
+        canvasProps: CanvasProperties = CanvasProperties()
     ) {
         self.manager = manager
         self.canvasId = canvasId
-        self.canvasProperties = canvasProps ?? CanvasProperties()
+        self.canvasProperties = canvasProps
     }
 
     // MARK: - Setup
