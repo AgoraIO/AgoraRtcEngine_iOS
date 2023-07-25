@@ -8,6 +8,7 @@ let package = Package(
     platforms: [.iOS(.v9)],
     products: [
         .library(name: "RtcBasic", targets: ["AgoraRtcKit", "AgoraCore", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch"]),
+        .library(name: "RtcBasicSwift", targets: ["RtcBasicSwift"]),
         .library(name: "AINS", targets: ["AgoraAiNoiseSuppressionExtension"]),
         .library(name: "AudioBeauty", targets: ["AgoraAudioBeautyExtension"]),
         .library(name: "ClearVision", targets: ["AgoraClearVisionExtension"]),
@@ -23,6 +24,7 @@ let package = Package(
         .library(name: "ReplayKit", targets: ["AgoraReplayKitExtension"]),
     ],
     targets: [
+        .target(name: "RtcBasicSwift", dependencies: ["AgoraRtcKit", "AgoraCore", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch"]),
         .binaryTarget(
             name: "AgoraDrmLoaderExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.2.2/AgoraDrmLoaderExtension.xcframework.zip",
