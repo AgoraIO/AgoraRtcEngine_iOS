@@ -22,7 +22,7 @@ public extension AgoraRtcEngineKit {
     /// - Parameters:
     ///   - property: The source property for the custom background image.
     ///   - model: The segmentation model configuration for enhancing the virtual background.
-    ///            Use `nil` if segmentation is not needed.
+    ///            Default will use ``VirtualBackgroundSegmentation/agoraAi``.
     ///   - sourceType: The media source type for the virtual background. Default is `nil`.
     ///                 Specify this only if needed.
     ///
@@ -35,21 +35,21 @@ public extension AgoraRtcEngineKit {
     /// ```
     func enableVirtualBackground(
         with property: VirtualBackgroundSource,
-        model: VirtualBackgroundSegmentation?,
+        model: VirtualBackgroundSegmentation = .agoraAi,
         sourceType: AgoraMediaSourceType? = nil
     ) {
         if let sourceType {
             self.enableVirtualBackground(
                 true,
                 backData: property.backgroundSource,
-                segData: model?.segmentationProperty,
+                segData: model.segmentationProperty,
                 sourceType: sourceType
             )
         } else {
             self.enableVirtualBackground(
                 true,
                 backData: property.backgroundSource,
-                segData: model?.segmentationProperty
+                segData: model.segmentationProperty
             )
         }
     }
