@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  AgoraRtcEngineKit+VirtualBackgrounds.swift
 //  
 //
 //  Created by Max Cobb on 23/08/2023.
@@ -33,20 +33,24 @@ public extension AgoraRtcEngineKit {
     ///     model: .greenScreen(capacity: 0.8)
     /// )
     /// ```
+    /// - Returns: 0: Success. < 0: Failure.
+    /// -1: Can't find image.
+    /// -2: Color format not supported.
+    /// -3: Defice not supported.
     func enableVirtualBackground(
         with property: VirtualBackgroundSource,
         model: VirtualBackgroundSegmentation = .agoraAi,
         sourceType: AgoraMediaSourceType? = nil
-    ) {
+    ) -> Int32 {
         if let sourceType {
-            self.enableVirtualBackground(
+            return self.enableVirtualBackground(
                 true,
                 backData: property.backgroundSource,
                 segData: model.segmentationProperty,
                 sourceType: sourceType
             )
         } else {
-            self.enableVirtualBackground(
+            return self.enableVirtualBackground(
                 true,
                 backData: property.backgroundSource,
                 segData: model.segmentationProperty
@@ -57,7 +61,7 @@ public extension AgoraRtcEngineKit {
     ///
     /// Use this method to disable virtual background and revert to the original
     /// background configuration.
-    func disableVirtualBackground() {
+    func disableVirtualBackground() -> Int32 {
         self.enableVirtualBackground(false, backData: nil, segData: nil)
     }
 }
