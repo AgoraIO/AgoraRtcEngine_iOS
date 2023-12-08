@@ -3,7 +3,6 @@ name: Integration Issue
 about: Create a report to help us figure out your issue adding the Swift Package
 title: "[INTEGRATION]"
 labels: bug
-assignees: maxxfrazer
 
 ---
 
