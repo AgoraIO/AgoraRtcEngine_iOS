@@ -15,7 +15,6 @@ let package = Package(
         .library(name: "SpatialAudio", targets: ["AgoraSpatialAudioExtension"]),
         .library(name: "VirtualBackground", targets: ["AgoraVideoSegmentationExtension"]),
         .library(name: "AIAEC", targets: ["AgoraAiEchoCancellationExtension"]),
-        .library(name: "DRM", targets: ["AgoraDrmLoaderExtension"]),
         .library(name: "VQA", targets: ["AgoraVideoQualityAnalyzerExtension"]),
         .library(name: "FaceDetection", targets: ["AgoraFaceDetectionExtension"]),
         .library(name: "VideoCodecEnc", targets: ["AgoraVideoEncoderExtension", "video_enc"]),
