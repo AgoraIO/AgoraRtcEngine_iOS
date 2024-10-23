@@ -6,9 +6,9 @@ import PackageDescription
 let package = Package(
     name: "{name}",
     defaultLocalization: "en",
-    platforms: [".iOS(.v9_0)"],
+    platforms: [.iOS(.v9)],
     products: [
-        .library(name: "RtcBasic", targets: ["AgoraRtcKit, "Agorafdkaac, "Agoraffmpeg, "AgoraSoundTouch", "AgoraInfra_iOS"]),
+        .library(name: "RtcBasic", targets: ["AgoraRtcKit", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch", "AgoraInfra_iOS"]),
         .library(name: "AINS", targets: ["AgoraAiNoiseSuppressionExtension"]),
         .library(name: "AINSLL", targets: ["AgoraAiNoiseSuppressionLLExtension"]),
         .library(name: "AudioBeauty", targets: ["AgoraAudioBeautyExtension"]),
@@ -22,8 +22,8 @@ let package = Package(
         .library(name: "FaceDetection", targets: ["AgoraFaceDetectionExtension"]),
         .library(name: "FaceCapture", targets: ["AgoraFaceCaptureExtension"]),
         .library(name: "LipSync", targets: ["AgoraLipSyncExtension"]),
-        .library(name: "VideoCodecEnc", targets: ["AgoraVideoEncoderExtension, "video_enc"]),
-        .library(name: "VideoCodecDec", targets: ["AgoraVideoDecoderExtension, "video_dec"]),
+        .library(name: "VideoCodecEnc", targets: ["AgoraVideoEncoderExtension", "video_enc"]),
+        .library(name: "VideoCodecDec", targets: ["AgoraVideoDecoderExtension", "video_dec"]),
         .library(name: "VideoAv1CodecEnc", targets: ["AgoraVideoAv1EncoderExtension"]),
         .library(name: "VideoAv1CodecDec", targets: ["AgoraVideoAv1DecoderExtension"]),
         .library(name: "ReplayKit", targets: ["AgoraReplayKitExtension"]),
@@ -155,4 +155,3 @@ let package = Package(
         .target(name: "RtcBasic", dependencies: ["AgoraInfra_iOS"]),
     ]
 )
-
