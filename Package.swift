@@ -8,7 +8,7 @@ let package = Package(
     defaultLocalization: "en",
     platforms: ['.iOS(.v9_0)'],
     products: [
-        .library(name: 'RtcBasic', targets: ['AgoraRtcKit, 'Agorafdkaac, 'Agoraffmpeg, 'AgoraSoundTouch']),
+        .library(name: 'RtcBasic', targets: ['AgoraRtcKit, 'Agorafdkaac, 'Agoraffmpeg, 'AgoraSoundTouch', "AgoraInfra_iOS"]),
         .library(name: 'AINS', targets: ['AgoraAiNoiseSuppressionExtension']),
         .library(name: 'AINSLL', targets: ['AgoraAiNoiseSuppressionLLExtension']),
         .library(name: 'AudioBeauty', targets: ['AgoraAudioBeautyExtension']),
@@ -29,7 +29,7 @@ let package = Package(
         .library(name: 'ReplayKit', targets: ['AgoraReplayKitExtension']),
     ],
     dependencies: [
-        {dependencies}
+        .package(url: "https://download.agora.io/swiftpm/AgoraInfra_iOS/0.0.2-test", from: "0.0.2-test"),
     ],
     targets: [
         .binaryTarget(
