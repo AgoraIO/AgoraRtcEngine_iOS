@@ -4,11 +4,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "{name}",
+    name: "AgoraRtcKit",
     defaultLocalization: "en",
     platforms: [.iOS(.v9)],
     products: [
-        .library(name: "RtcBasic", targets: ["AgoraRtcKit", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch", "AgoraInfra_iOS"]),
+        .library(name: "RtcBasic", targets: ["AgoraRtcKit", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch", "AgoraInfra"]),
         .library(name: "AINS", targets: ["AgoraAiNoiseSuppressionExtension"]),
         .library(name: "AINSLL", targets: ["AgoraAiNoiseSuppressionLLExtension"]),
         .library(name: "AudioBeauty", targets: ["AgoraAudioBeautyExtension"]),
@@ -29,7 +29,7 @@ let package = Package(
         .library(name: "ReplayKit", targets: ["AgoraReplayKitExtension"]),
     ],
     dependencies: [
-        .package(url: "https://download.agora.io/swiftpm/AgoraInfra_iOS/0.0.2-test", from: "0.0.2-test"),
+        .package(url: "https://download.agora.io/swiftpm/AgoraInfra_iOS", from: "0.0.3-test"),
     ],
     targets: [
         .binaryTarget(
@@ -152,6 +152,6 @@ let package = Package(
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/0.0.4-test-with-aosl/AgoraReplayKitExtension.xcframework.zip",
             checksum: "49d9b5ee73914e87fe0e2cb17b55a1d4e3e059771a8149942b0d7c37ce86e5c4"
         ),
-        .target(name: "RtcBasic", dependencies: ["AgoraInfra_iOS"]),
+        .product(name: "AgoraInfra", package: ["AgoraInfra_iOS"]),
     ]
 )
