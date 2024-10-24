@@ -29,7 +29,7 @@ let package = Package(
         .library(name: "ReplayKit", targets: ["AgoraReplayKitExtension"]),
     ],
     dependencies: [
-        .package(url: "https://download.agora.io/swiftpm/AgoraInfra_iOS", from: "0.0.3-test"),
+        .package(url: "https://github.com/AgoraIO/AgoraInfra_iOS.git", from: "0.0.3-test"),
     ],
     targets: [
         .binaryTarget(
@@ -152,6 +152,6 @@ let package = Package(
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/0.0.4-test-with-aosl/AgoraReplayKitExtension.xcframework.zip",
             checksum: "49d9b5ee73914e87fe0e2cb17b55a1d4e3e059771a8149942b0d7c37ce86e5c4"
         ),
-        .product(name: "AgoraInfra", package: ["AgoraInfra_iOS"]),
+        .target(name: "RtcBasic", dependencies: ["AgoraRtcKit", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch", "AgoraInfra"]),
     ]
 )
