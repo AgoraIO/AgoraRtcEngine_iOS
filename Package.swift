@@ -32,6 +32,7 @@ let package = Package(
         .package(url: "https://github.com/AgoraIO/AgoraInfra_iOS", .branch("main"))
     ],
     targets: [
+        .target(name: "AgoraInfra_iOS", dependencies: [.product(name: "AgoraInfra_iOS", package: "AgoraInfra_iOS")]),
         .binaryTarget(
             name: "AgoraRtcKit",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/0.0.7-test-with-aosl/AgoraRtcKit.xcframework.zip",
