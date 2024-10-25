@@ -151,7 +151,6 @@ let package = Package(
             name: "AgoraReplayKitExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/0.0.7-test-with-aosl/AgoraReplayKitExtension.xcframework.zip",
             checksum: "8af3a91f979c13c0c7c85c7ac545326c8c6b3209d6cba0a3e1d1f69af928e972"
-        ),
-        .target(name: "AgoraInfra_iOS", dependencies: ["AgoraInfra_iOS"])
+        )
     ]
 )
