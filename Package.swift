@@ -8,7 +8,7 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [.iOS(.v9)],
     products: [
-        .library(name: "RtcBasic", targets: ["AgoraRtcKit", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch"]),
+        .library(name: "RtcBasic", targets: ["AgoraRtcKit", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch", "AgoraInfra_iOS"]),
         .library(name: "AINS", targets: ["AgoraAiNoiseSuppressionExtension"]),
         .library(name: "AINSLL", targets: ["AgoraAiNoiseSuppressionLLExtension"]),
         .library(name: "AudioBeauty", targets: ["AgoraAudioBeautyExtension"]),
@@ -32,6 +32,12 @@ let package = Package(
         .package(url: "https://github.com/AgoraIO/AgoraInfra_iOS", .branch("main"))
     ],
     targets: [
+        .target(
+            name: "AgoraInfra_iOS",
+            dependencies: [
+                .product(name: "AgoraInfra_iOS", package: "AgoraInfra_iOS")
+            ]
+        ),
         .binaryTarget(
             name: "AgoraRtcKit",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/0.0.7-test-with-aosl/AgoraRtcKit.xcframework.zip",
