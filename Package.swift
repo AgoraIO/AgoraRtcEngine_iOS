@@ -29,7 +29,7 @@ let package = Package(
         .library(name: "ReplayKit", targets: ["AgoraReplayKitExtension"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/AgoraIO/AgoraInfra_iOS.git", .branch("main"))
+        .package(url: "https://github.com/AgoraIO/AgoraInfra_iOS", .branch("main"))
     ],
     targets: [
         .binaryTarget(
