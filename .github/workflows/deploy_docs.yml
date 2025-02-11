@@ -74,7 +74,7 @@ jobs:
           mv /tmp/docbuild/Build/Products/${{ env.BUILD_PRODUCT }}/${{ env.PACKAGE_NAME }}.doccarchive ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive
           zip -r ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive
       - name: Upload DocC Artifact (${{ matrix.language }}) ⬆️
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
           path: ${{ env.PACKAGE_NAME }}-${{ matrix.language }}.doccarchive.zip
