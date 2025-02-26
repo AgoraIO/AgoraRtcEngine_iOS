@@ -20,7 +20,6 @@ AgoraRtcKit is designed to be flexible and customizable, allowing developers to 
 
 - <doc:GettingStarted>
 - <doc:Channels>
-- <doc:/tutorials/TOC>
 
 ### Core Classes
 
