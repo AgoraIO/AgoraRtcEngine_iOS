@@ -45,6 +45,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: littleGnAl/iris-doc
+          ref: updates-to-parse-ios-template-correctly
           path: iris-doc
       - name: Set up python 3.9 🐍
         uses: actions/setup-python@v4
