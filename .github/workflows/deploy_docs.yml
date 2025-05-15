@@ -52,7 +52,7 @@ jobs:
       - name: Clone Python Script 👭
         uses: actions/checkout@v3
         with:
-          repository: littleGnAl/iris-doc
+          repository: AgoraIO-Extensions/iris_doc
           ref: updates-to-parse-ios-template-correctly
           path: iris-doc
       - name: Set up python 3.9 🐍
@@ -116,9 +116,9 @@ jobs:
             --output-path docs
           echo "<script>window.location.href += \"/documentation/${{ steps.package-name.outputs.lowercase }}\"</script>" > docs/index.html
       - name: Upload artifact ⬆️
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: 'docs'
       - name: Deploy to GitHub Pages 📑
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
