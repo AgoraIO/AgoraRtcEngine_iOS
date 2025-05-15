@@ -44,7 +44,7 @@ jobs:
       - name: Clone Python Script 👭
         uses: actions/checkout@v3
         with:
-          repository: littleGnAl/iris-doc
+          repository: AgoraIO-Extensions/iris_doc
           ref: updates-to-parse-ios-template-correctly
           path: iris-doc
       - name: Set up python 3.9 🐍
