@@ -20,7 +20,7 @@ env:
   PACKAGE_NAME: AgoraRtcKit
   BUILD_DEST: generic/platform=iOS
   BUILD_PRODUCT: Debug-iphoneos
-  JSON_TEMPLATE_BASE: https://gist.github.com/saudsami/b70ddb77958488640bf3f7c1f638f7ae
+  JSON_TEMPLATE_BASE: https://gist.githubusercontent.com/saudsami/b70ddb77958488640bf3f7c1f638f7ae/raw/afd365befc0fab07e008c44c971bf3caffd2787c/test_ios_en_ng.json
 
 jobs:
   generate-docc:
