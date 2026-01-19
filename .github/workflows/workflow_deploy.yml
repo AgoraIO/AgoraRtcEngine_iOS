@@ -25,7 +25,7 @@ env:
 jobs:
   generate-docc:
     name: Build DocC Archives
-    runs-on: macos-13
+    runs-on: macOS-latest
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
