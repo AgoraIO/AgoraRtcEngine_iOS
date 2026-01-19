@@ -52,9 +52,15 @@ jobs:
           path: xcframework-to-docc
       - name: Setup Xcode Project 🛠️
         run: |
+          set -x
           sh -e xcframework-to-docc/dl_framework.sh ${{ env.PACKAGE_NAME }}
+          echo "✅ Framework downloaded"
+          
           sh -e xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc
+          echo "✅ Header files moved"
+          
           sh -e xcframework-to-docc/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder
+          echo "✅ Headers added to Xcode project"          
       - name: Clone Python Script 👭
         uses: actions/checkout@v3
         with:
