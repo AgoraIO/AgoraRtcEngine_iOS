@@ -44,7 +44,7 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
       - name: Switch Xcode 🔄
-        run: sudo xcode-select --switch /Applications/Xcode_15.0.app
+        run: sudo xcode-select --reset
       - name: Clone DocC Helper 👭
         uses: actions/checkout@v3
         with:
