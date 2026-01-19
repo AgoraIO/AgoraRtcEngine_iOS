@@ -56,11 +56,11 @@ jobs:
           sh -e xcframework-to-docc/dl_framework.sh ${{ env.PACKAGE_NAME }}
           echo "✅ Framework downloaded"
           
-          sh -e xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc
+          sh -v xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc || { echo "❌ move_header_files.sh failed"; cat xcframework-to-docc/move_header_files.sh; exit 1; }
           echo "✅ Header files moved"
           
-          sh -e xcframework-to-docc/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder
-          echo "✅ Headers added to Xcode project"          
+          sh -v xcframework-to-docc/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder || { echo "❌ headers_to_xcodeproj.sh failed"; exit 1; }
+          echo "✅ Headers added to Xcode project"       
       - name: Clone Python Script 👭
         uses: actions/checkout@v3
         with:
