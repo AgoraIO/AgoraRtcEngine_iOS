@@ -52,26 +52,14 @@ jobs:
           path: xcframework-to-docc
       - name: Setup Xcode Project 🛠️
         run: |
-          set -x
           sh -e xcframework-to-docc/dl_framework.sh ${{ env.PACKAGE_NAME }}
           echo "✅ Framework downloaded"
           
-          echo "=== Checking framework structure ==="
-          find AgoraRtcKit.xcframework -name "AgoraRtcKit.h" | head -5
-          find AgoraRtcKit.xcframework -type d -name Headers
-          
-          sh -e xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc
+          sh -e xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc ios-arm64
           echo "✅ Header files moved"
-          
-          echo "=== Checking docc_builder after move ==="
-          ls -la docc_builder/
-          find docc_builder -name "AgoraRtcKit.h" 2>/dev/null || echo "❌ AgoraRtcKit.h not found in docc_builder"
           
           sh -e xcframework-to-docc/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder
           echo "✅ Headers added to Xcode project"
-          
-          echo "=== Final docc_builder structure ==="
-          ls -la docc_builder/AgoraRtcKit/Headers/ 2>/dev/null || echo "docc_builder/AgoraRtcKit/Headers/ doesn't exist" 
       - name: Clone Python Script 👭
         uses: actions/checkout@v3
         with:
