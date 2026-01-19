@@ -51,16 +51,26 @@ jobs:
           repository: maxxfrazer/xcframework-to-docc
           path: xcframework-to-docc
       - name: Setup Xcode Project 🛠️
+        continue-on-error: true
         run: |
           set -x
           sh -e xcframework-to-docc/dl_framework.sh ${{ env.PACKAGE_NAME }}
           echo "✅ Framework downloaded"
           
-          sh -v xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc || { echo "❌ move_header_files.sh failed"; cat xcframework-to-docc/move_header_files.sh; exit 1; }
+          sh -e xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc
           echo "✅ Header files moved"
           
-          sh -v xcframework-to-docc/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder || { echo "❌ headers_to_xcodeproj.sh failed"; exit 1; }
-          echo "✅ Headers added to Xcode project"       
+          sh -e xcframework-to-docc/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder
+          echo "✅ Headers added to Xcode project"
+      
+      - name: Debug - Show directory structure
+        run: |
+          echo "=== docc_builder structure ==="
+          find docc_builder -type f -name "*.h" | head -20
+          echo "=== Looking for AgoraRtcKit.h ==="
+          find . -name "AgoraRtcKit.h" 2>/dev/null
+          echo "=== Full docc_builder directory listing ==="
+          ls -la docc_builder/     
       - name: Clone Python Script 👭
         uses: actions/checkout@v3
         with:
