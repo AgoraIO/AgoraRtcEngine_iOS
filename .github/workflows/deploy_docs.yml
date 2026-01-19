@@ -30,7 +30,7 @@ env:
 jobs:
   generate-docc:
     name: Build DocC Archives
-    runs-on: macos-13
+    runs-on: macos-15-intel
     strategy:
       matrix:
         language: ['en', 'cn']
