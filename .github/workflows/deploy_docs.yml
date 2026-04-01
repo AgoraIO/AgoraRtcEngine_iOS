@@ -55,7 +55,8 @@ jobs:
           sh -e xcframework-to-docc/dl_framework.sh ${{ env.PACKAGE_NAME }}
           echo "✅ Framework downloaded"
           
-          sh -e xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc ios-arm64
+          ARCH_DIR=$(ls -d ${{ env.PACKAGE_NAME }}.xcframework/ios-arm64* | grep -v simulator | head -1 | xargs basename)
+          sh -e xcframework-to-docc/move_header_files.sh ${{ env.PACKAGE_NAME }}.xcframework ${{ env.PACKAGE_NAME }}.docc "$ARCH_DIR"
           echo "✅ Header files moved"
           
           sh -e xcframework-to-docc/headers_to_xcodeproj.sh ${{ env.PACKAGE_NAME }} docc_builder
