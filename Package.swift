@@ -40,12 +40,12 @@ let package = Package(
         .binaryTarget(
             name: "Agorafdkaac",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/Agorafdkaac.xcframework.zip",
-            checksum: "36041b073c2223712b9126bc52aea0cb181e94eccf3345db9a4ea8fb2452e05e"
+            checksum: "6faf4a28acb6d0bfd3ccb9eb5ef04437e5be52c4d7ad80f9cfb4fefda2dc09b2"
         ),
         .binaryTarget(
             name: "Agoraffmpeg",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/Agoraffmpeg.xcframework.zip",
-            checksum: "9940f0c12090de4562a74b9de836d653c829321cbb7ee2232370580d63ba4194"
+            checksum: "db4d3c48e84bf37696e688b0937e1593086be6c10579df45e91d5b44ac532376"
         ),
         .binaryTarget(
             name: "AgoraSoundTouch",
@@ -70,27 +70,27 @@ let package = Package(
         .binaryTarget(
             name: "AgoraClearVisionExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraClearVisionExtension.xcframework.zip",
-            checksum: "d74db92b8cab6a716ee5cc7bf458c8a596e5d6877fb80849fabb92c3bdd073dc"
+            checksum: "a4a7cf363159b9444ca12161c5ee54b790cc3356b2ce4aa0e2d62cd419caab89"
         ),
         .binaryTarget(
             name: "AgoraContentInspectExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraContentInspectExtension.xcframework.zip",
-            checksum: "41c80ed230156a18d108f7e7696beb57aa0d9f14bb7bc40425cd68186ebc7c66"
+            checksum: "cc602043e3a2b6fe4b77d074c4e526a95f301afad05e7b565cbea9d1c7126e3e"
         ),
         .binaryTarget(
             name: "AgoraSpatialAudioExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraSpatialAudioExtension.xcframework.zip",
-            checksum: "6b2a3dd2df07006819f73d1494c752e5e37a25067d8a612a5e5b433b2293d119"
+            checksum: "a783a92b9b8b11b2d13625f874c6bd3f6fbcc9f76e0ec95e552549ef685628ff"
         ),
         .binaryTarget(
             name: "AgoraVideoSegmentationExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraVideoSegmentationExtension.xcframework.zip",
-            checksum: "0a3256ce3dceca5794cc5d6bff6a605a4f0e34b737f847db9fb2724c6668d59b"
+            checksum: "5995f6a11daaab376d8c865535ff56eb88ad78ed059e77872747a6dc8ac3fd96"
         ),
         .binaryTarget(
             name: "AgoraAiEchoCancellationExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraAiEchoCancellationExtension.xcframework.zip",
-            checksum: "b5be01a6889c089ef67a486906bd6858c642d492b3f8b0bb15eade0b6f120517"
+            checksum: "bca095dc8e7d4d5769d486ebed8f5e8f290ada1a906c00a5bb47cb1a42e53d82"
         ),
         .binaryTarget(
             name: "AgoraAiEchoCancellationLLExtension",
@@ -100,17 +100,17 @@ let package = Package(
         .binaryTarget(
             name: "AgoraVideoQualityAnalyzerExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraVideoQualityAnalyzerExtension.xcframework.zip",
-            checksum: "b2242bc567d138b0f4a93a0095e9c1c73fdbe770d18c23888968cbca8fa4f535"
+            checksum: "4651143d9fe5c68e6a2509946913cbaac9f11bfff04c76e30d01ff747da1c62f"
         ),
         .binaryTarget(
             name: "AgoraFaceDetectionExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraFaceDetectionExtension.xcframework.zip",
-            checksum: "e341578bc5f5fb8d2400269cba27ef76bb24f20c46a9bf727b48e01b4371da3e"
+            checksum: "84c6ce8567a6240f1ed132b2ae5beaed56614144b9eb81c5b2adc7930ea13a8d"
         ),
         .binaryTarget(
             name: "AgoraFaceCaptureExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraFaceCaptureExtension.xcframework.zip",
-            checksum: "a145679b87402b718a006c5016c5ba2f6bf64e773dab919ac763e276cd09a7cd"
+            checksum: "dd59562e7c31c35f5a922f220996e37684e11b9638464734896c7a5e7b0f92d8"
         ),
         .binaryTarget(
             name: "AgoraLipSyncExtension",
@@ -120,12 +120,12 @@ let package = Package(
         .binaryTarget(
             name: "AgoraVideoEncoderExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraVideoEncoderExtension.xcframework.zip",
-            checksum: "a3c772036aef08547e540dcb66cbc66a4b638eedd7e94daf5a3212de61025f6f"
+            checksum: "7435978ab78ad6a3009e6631235585b5db2175c940ee9eb1a19dd5190e121902"
         ),
         .binaryTarget(
             name: "video_enc",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/video_enc.xcframework.zip",
-            checksum: "e78cf77806eeda02853676e81a265fb0ac97e9a525537bb13d349066d31416ab"
+            checksum: "bf06eb086aeadf297b9526159ec24c1d0d3790e1cc9eb0a648944897a5fcb81d"
         ),
         .binaryTarget(
             name: "AgoraVideoDecoderExtension",
@@ -140,17 +140,17 @@ let package = Package(
         .binaryTarget(
             name: "AgoraVideoAv1EncoderExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraVideoAv1EncoderExtension.xcframework.zip",
-            checksum: "7a2c160e7a0e1e1940ea418711fac75cfdc5e2313afcc2000bd0cff82c501d3a"
+            checksum: "7be5c1eff2de6e9608a559db9380edddf907f0d876ca19087a9dfea29126cfc4"
         ),
         .binaryTarget(
             name: "AgoraVideoAv1DecoderExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraVideoAv1DecoderExtension.xcframework.zip",
-            checksum: "da53b9b35f0fc0f747aa1676fadeb8cc37552a513fe265889b0f0f07b2a50c2e"
+            checksum: "c4a31810f4b1aab2b6f52efcbff6e6b9bd5248fe1f4b24f43bd1713ed073b618"
         ),
         .binaryTarget(
             name: "AgoraReplayKitExtension",
             url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.5.2-a170/AgoraReplayKitExtension.xcframework.zip",
-            checksum: "99879b1add5de91fdbbfdc387b1dd9e09a00ca1ef0e5c4b1794332985e78456d"
+            checksum: "cfd3c6e816e0a6e68e652471d31ee13a0b36dcf9b22986340ad52c6406f32109"
         ),
         .target(
             name: "AgoraInfra_iOS",
