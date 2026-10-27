@@ -1,145 +1,124 @@
 // swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
 
 let package = Package(
-    name: "AgoraRtcEngine_iOS",
+    name: "AgoraRtcKit",
     defaultLocalization: "en",
     platforms: [.iOS(.v9)],
     products: [
-        .library(name: "RtcBasic", targets: ["AgoraRtcKit", "Agorafdkaac", "Agoraffmpeg", "AgoraSoundTouch", "video_dec", "AgoraInfra_iOS"]),
-        .library(name: "AINS", targets: ["AgoraAiNoiseSuppressionExtension"]),
-        .library(name: "AINSLL", targets: ["AgoraAiNoiseSuppressionLLExtension"]),
-        .library(name: "AudioBeauty", targets: ["AgoraAudioBeautyExtension"]),
+        .library(name: "AgoraInfra_iOS", targets: ["aosl"]),
+        .library(name: "AIAEC", targets: ["AgoraAiEchoCancellationExtension"]),
         .library(name: "ClearVision", targets: ["AgoraClearVisionExtension"]),
         .library(name: "ContentInspect", targets: ["AgoraContentInspectExtension"]),
+        .library(name: "VQA", targets: ["AgoraVideoQualityAnalyzerExtension"]),
         .library(name: "SpatialAudio", targets: ["AgoraSpatialAudioExtension"]),
         .library(name: "VirtualBackground", targets: ["AgoraVideoSegmentationExtension"]),
-        .library(name: "AIAEC", targets: ["AgoraAiEchoCancellationExtension"]),
-        .library(name: "AIAECLL", targets: ["AgoraAiEchoCancellationLLExtension"]),
-        .library(name: "VQA", targets: ["AgoraVideoQualityAnalyzerExtension"]),
-        .library(name: "FaceDetection", targets: ["AgoraFaceDetectionExtension"]),
-        .library(name: "FaceCapture", targets: ["AgoraFaceCaptureExtension"]),
-        .library(name: "LipSync", targets: ["AgoraLipSyncExtension"]),
-        .library(name: "VideoCodecEnc", targets: ["AgoraVideoEncoderExtension"]),
-        .library(name: "VideoAv1CodecEnc", targets: ["AgoraVideoAv1EncoderExtension"]),
+        .library(name: "AINS", targets: ["AgoraAiNoiseSuppressionExtension"]),
         .library(name: "ReplayKit", targets: ["AgoraReplayKitExtension"]),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/AgoraIO/AgoraInfra_iOS.git", .exact("1.3.16"))
+        .library(name: "AudioBeauty", targets: ["AgoraAudioBeautyExtension"]),
+        .library(name: "RtcBasic", targets: ["Agoraffmpeg", "AgoraRtcKit", "AgoraVideoEncoderExtension", "video_dec", "AgoraFaceCaptureExtension", "Agorafdkaac", "AgoraVideoAv1EncoderExtension", "AgoraLipSyncExtension", "AgoraSoundTouch", "AgoraFaceDetectionExtension"]),
     ],
     targets: [
         .binaryTarget(
-            name: "AgoraRtcKit",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraRtcKit.xcframework.zip",
-            checksum: "9b020cf6cac3d1c702563a9c5ff6884eef749b121b74c3a86dcbdee527d5d120"
-        ),
-        .binaryTarget(
-            name: "Agorafdkaac",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/Agorafdkaac.xcframework.zip",
-            checksum: "5c34da17448657fdcb795bfcaee71ded2c5a9beee9ab7a06be06e880da4aa590"
-        ),
-        .binaryTarget(
             name: "Agoraffmpeg",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/Agoraffmpeg.xcframework.zip",
-            checksum: "59060c7a1327faa3c5e22a08f5093e91c4dee548e09a1e97eae79f18e83736a6"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/Agoraffmpeg.xcframework.zip",
+            checksum: "7fe5c26e09b92c53eff65dc998a3126a2c8ad57b9d6af5896b5c8790064b5a03"
         ),
         .binaryTarget(
-            name: "AgoraSoundTouch",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraSoundTouch.xcframework.zip",
-            checksum: "28670f06946b72e73f91148ecbb5ddbfdc211d8ce378ff115941ecedd9bf3e8a"
+            name: "AgoraRtcKit",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraRtcKit.xcframework.zip",
+            checksum: "ec9ffe18e98c3b4041f7b81303547d0963a8bc74c5a7ae8a0db2d45781d968d3"
         ),
         .binaryTarget(
-            name: "video_dec",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/video_dec.xcframework.zip",
-            checksum: "3afe9b9f7fecafa4c42d4a6a0c85927c3deb7cc226837c3e17bb398dbc95a74e"
-        ),
-        .binaryTarget(
-            name: "AgoraAiNoiseSuppressionExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraAiNoiseSuppressionExtension.xcframework.zip",
-            checksum: "74241c010ad183644affd09cc547b2d80cd969555725a9fc6191dc633a1b1cba"
-        ),
-        .binaryTarget(
-            name: "AgoraAiNoiseSuppressionLLExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraAiNoiseSuppressionLLExtension.xcframework.zip",
-            checksum: "272a453699b6a5cfa9f987596bfa1cc58e0299ce829dd216ec134a102c32884b"
-        ),
-        .binaryTarget(
-            name: "AgoraAudioBeautyExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraAudioBeautyExtension.xcframework.zip",
-            checksum: "b77482d65dee1f5726aa047819c17a6ad511b4487560fa4292a4c413e45e7962"
-        ),
-        .binaryTarget(
-            name: "AgoraClearVisionExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraClearVisionExtension.xcframework.zip",
-            checksum: "b8a66eafdbc6ba0d8bc512aac98e4ecf178741de004e9a63767a740292ea1906"
-        ),
-        .binaryTarget(
-            name: "AgoraContentInspectExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraContentInspectExtension.xcframework.zip",
-            checksum: "fcbc3a6720ca8e5d43cf57489aa3ef3955908180c0316bfca94101487b3f7bb2"
-        ),
-        .binaryTarget(
-            name: "AgoraSpatialAudioExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraSpatialAudioExtension.xcframework.zip",
-            checksum: "4214e161ce120160008264df2f813cc6f314f15a7a3d9d4aedb9b2fbfb8e64a7"
-        ),
-        .binaryTarget(
-            name: "AgoraVideoSegmentationExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraVideoSegmentationExtension.xcframework.zip",
-            checksum: "93483e94603e83d08910b3256ddfea28e8699813ae050bbff730ebf0d78ae5ef"
+            name: "aosl",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/aosl.xcframework.zip",
+            checksum: "4b6a67133ac5d3330c724c73de51654415fab1d7a859e5dafde504c1d0b72d4f"
         ),
         .binaryTarget(
             name: "AgoraAiEchoCancellationExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraAiEchoCancellationExtension.xcframework.zip",
-            checksum: "ea702a1c7de9f7380138ba870c7994a8bbd820e904360b3d34ce384d73ac57d4"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraAiEchoCancellationExtension.xcframework.zip",
+            checksum: "c71c5bad70c027880cc78dbff75cea523c9b2f7b5ed6e8c87dc6d0ecbd5d08b2"
         ),
         .binaryTarget(
-            name: "AgoraAiEchoCancellationLLExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraAiEchoCancellationLLExtension.xcframework.zip",
-            checksum: "cdaeb4e8b9e080b882343a95b182121597d90e29d60e15399a318b50297a5069"
+            name: "AgoraClearVisionExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraClearVisionExtension.xcframework.zip",
+            checksum: "613d65869a98282244fbca418c89205f6206fed57ccf5da325fcd394865d1b59"
         ),
         .binaryTarget(
-            name: "AgoraVideoQualityAnalyzerExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraVideoQualityAnalyzerExtension.xcframework.zip",
-            checksum: "77672840cb40ba93c9684700c2716ff8cc159d4a7baf48350b6d804ef594d75e"
-        ),
-        .binaryTarget(
-            name: "AgoraFaceDetectionExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraFaceDetectionExtension.xcframework.zip",
-            checksum: "2ef4df4adb16e62e1c0fd1ff68d48306bfeb13d4c696fb9ea1df1d62c22bcb56"
-        ),
-        .binaryTarget(
-            name: "AgoraFaceCaptureExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraFaceCaptureExtension.xcframework.zip",
-            checksum: "e329ba71d8e427fe2913921e6307d0a451e665259b247554fcdfbba39fb1636e"
-        ),
-        .binaryTarget(
-            name: "AgoraLipSyncExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraLipSyncExtension.xcframework.zip",
-            checksum: "c0377f174528c740946b8c713beb9e59ea7521896afddf6619f9cdc7c409025c"
+            name: "AgoraContentInspectExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraContentInspectExtension.xcframework.zip",
+            checksum: "7e399b15e752aa9577a9c5bd1f2304ccfe785c02482b29a49f17370f77883ae3"
         ),
         .binaryTarget(
             name: "AgoraVideoEncoderExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraVideoEncoderExtension.xcframework.zip",
-            checksum: "9b5e0db7805b90f3f73686f08b74cb74db7be43d6a5c646178a69a595e2fa7d9"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraVideoEncoderExtension.xcframework.zip",
+            checksum: "372dc6ca3b21186276d8269d7232e6f81dee7cc9ce8c39983eb3a2d5d9860bf1"
+        ),
+        .binaryTarget(
+            name: "video_dec",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/video_dec.xcframework.zip",
+            checksum: "484d7b46b655f6d97d147dfc8544c3dcd6234d30b00d702d1621d461e2928467"
+        ),
+        .binaryTarget(
+            name: "AgoraFaceCaptureExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraFaceCaptureExtension.xcframework.zip",
+            checksum: "5b5c8ca93a20ef05c10bf0c1c06e8e735177defd93bf09747cc760adc7021269"
+        ),
+        .binaryTarget(
+            name: "AgoraVideoQualityAnalyzerExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraVideoQualityAnalyzerExtension.xcframework.zip",
+            checksum: "44fcc7b63302f936d7f9d19de8da0d09a8b0285a41d0021a42d558801232e9a6"
+        ),
+        .binaryTarget(
+            name: "Agorafdkaac",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/Agorafdkaac.xcframework.zip",
+            checksum: "86357ecec9c9408011c5de0d9a7f47217f633af787fa99068e8c02ef61343333"
+        ),
+        .binaryTarget(
+            name: "AgoraSpatialAudioExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraSpatialAudioExtension.xcframework.zip",
+            checksum: "848e4c4aeed998963faf2b497d6895b4c430c0beb94871237c699cc4b6ea6b37"
+        ),
+        .binaryTarget(
+            name: "AgoraVideoSegmentationExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraVideoSegmentationExtension.xcframework.zip",
+            checksum: "56d7eacf658515f65cfb974d0e06da05ed6f29a5d207a1ed06a5575f5a0e6051"
         ),
         .binaryTarget(
             name: "AgoraVideoAv1EncoderExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraVideoAv1EncoderExtension.xcframework.zip",
-            checksum: "62f38d5369f6dff769dab7e50f644aed756aa3a84f65306692aecb82863bac50"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraVideoAv1EncoderExtension.xcframework.zip",
+            checksum: "f49fa4b100b68fa0242a634fb04ed188b487f175e91e8ec88eb8ae33e8c204a9"
+        ),
+        .binaryTarget(
+            name: "AgoraAiNoiseSuppressionExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraAiNoiseSuppressionExtension.xcframework.zip",
+            checksum: "1e038e846161d820c53fa1b70d65114fec0b754ae4f9f04dc6bbe29c631dd729"
+        ),
+        .binaryTarget(
+            name: "AgoraLipSyncExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraLipSyncExtension.xcframework.zip",
+            checksum: "aa23238c2c731135804db1f962335f0ae14cec3a8cb08bc04de9d6d61f945222"
+        ),
+        .binaryTarget(
+            name: "AgoraSoundTouch",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraSoundTouch.xcframework.zip",
+            checksum: "60a09ab8496d152a21db9e519e2eba23794b9bb3b47697df349fcbbb5da92e17"
         ),
         .binaryTarget(
             name: "AgoraReplayKitExtension",
-            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.7.0/AgoraReplayKitExtension.xcframework.zip",
-            checksum: "74a807e0e27bf31056ea2f3089a11a528d9242ea04536756d3ffd86671db9d42"
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraReplayKitExtension.xcframework.zip",
+            checksum: "cf12271012ee2ef6eb81a3605e31a55dbc588d1ad2fdb6fb5a3552b2f0e2c5ec"
         ),
-        .target(
-            name: "AgoraInfra_iOS",
-            dependencies: [
-                .product(name: "AgoraInfra_iOS", package: "AgoraInfra_iOS")
-            ]
-        )
+        .binaryTarget(
+            name: "AgoraAudioBeautyExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraAudioBeautyExtension.xcframework.zip",
+            checksum: "362d848df85f3f13d058d92e2f1d23cdc86a1c72b7296b66297419d567538bae"
+        ),
+        .binaryTarget(
+            name: "AgoraFaceDetectionExtension",
+            url: "https://download.agora.io/swiftpm/AgoraRtcEngine_iOS/4.6.4.1/AgoraFaceDetectionExtension.xcframework.zip",
+            checksum: "38ace1b4fe19740b462b750cf5ec075907c91b6d439b4f463691666d0451a069"
+        ),
     ]
 )
